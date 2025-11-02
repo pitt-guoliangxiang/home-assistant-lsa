@@ -1,0 +1,628 @@
+views:
+  - type: sections
+    max_columns: 1
+    dense_section_placement: true
+    path: Home
+    sections:
+      - type: grid
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: green
+                primary: Home
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/Home
+                vertical: true
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: blue
+                badge_color: blue
+                primary: My Status
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/my-status
+                vertical: true
+              - type: custom:mushroom-template-card
+                primary: Home Status
+                secondary: null
+                icon: mdi:lightbulb
+                features_position: bottom
+                color: amber
+                vertical: true
+                tap_action:
+                  action: navigate
+                  navigation_path: Devices
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-status
+              - type: custom:mushroom-template-card
+                icon: mdi:controller
+                features_position: bottom
+                color: black
+                badge_color: blue
+                primary: Home Control
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-control
+                vertical: true
+      - type: grid
+        cards:
+          - type: markdown
+            content: >-
+              <center><h1>{{ now().strftime('%a_%b_%-d, 20%y ') | replace('_',
+              '&nbsp;') }}
+            grid_options:
+              columns: 6
+              rows: 2
+          - clock_style: digital
+            clock_size: medium
+            show_seconds: false
+            no_background: false
+            type: clock
+            face_style: markers
+            grid_options:
+              columns: 6
+              rows: 2
+          - type: custom:mushroom-person-card
+            name: Victoria
+            icon: mdi:account
+            fill_container: true
+            layout: horizontal
+            entity: person.st4p_researcher_gmail_com
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: custom:mushroom-person-card
+            name: Care Giver
+            icon: mdi:account
+            fill_container: false
+            layout: horizontal
+            grid_options:
+              columns: 6
+              rows: 1
+            entity: device_tracker.bcpro_205589_bermuda_tracker
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.forecast_home
+            forecast_type: daily
+            secondary_info_attribute: wind_speed
+            theme: Mushroom Square Shadow
+          - entities:
+              - calendar.lifeskillsdemo1_gmail_com
+            show_empty_days: true
+            title: The Calendar
+            title_font_size: '28px '
+            title_color: black
+            height: 240px
+            weather:
+              position: date
+              date:
+                show_conditions: true
+                show_high_temp: true
+                show_low_temp: false
+                icon_size: 14px
+                font_size: 12px
+                color: var(--primary-text-color)
+              event:
+                show_conditions: true
+                show_temp: true
+                icon_size: 14px
+                font_size: 12px
+                color: var(--primary-text-color)
+            type: custom:calendar-card-pro
+    header:
+      card:
+        type: markdown
+        content: |-
+          # Welcome to Life Skills Apartment
+          #
+          #
+        text_only: true
+    badges: []
+    cards: []
+    title: Home
+  - type: sections
+    max_columns: 1
+    title: My Status
+    path: my-status
+    theme: Mushroom
+    sections:
+      - type: grid
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: green
+                primary: Home
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/Home
+                vertical: true
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: blue
+                badge_color: blue
+                primary: My Status
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/my-status
+                vertical: true
+              - type: custom:mushroom-template-card
+                primary: Home Status
+                secondary: null
+                icon: mdi:lightbulb
+                features_position: bottom
+                color: amber
+                vertical: true
+                tap_action:
+                  action: navigate
+                  navigation_path: Devices
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-status
+              - type: custom:mushroom-template-card
+                icon: mdi:controller
+                features_position: bottom
+                color: black
+                badge_color: blue
+                primary: Home Control
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-control
+                vertical: true
+      - type: grid
+        cards:
+          - type: heading
+            icon: mdi:wheelchair-accessibility
+            heading: Today's activity
+            heading_style: title
+          - type: entities
+            entities:
+              - entity: sensor.occupied_time_on_bed
+                name: Time on Bed
+                icon: mdi:bed
+                secondary_info: last-updated
+              - entity: sensor.occupied_time_on_wheelchair
+                secondary_info: last-updated
+                name: Time on WheelChair
+                icon: mdi:wheelchair
+              - entity: sensor.visited_living_room
+                name: Time in Living Room
+                secondary_info: last-updated
+              - entity: sensor.visited_bedroom
+                name: Time in Bedroom
+                secondary_info: last-updated
+              - entity: sensor.rooms_visited_list
+                name: Which Room you have visited
+                icon: mdi:google-classroom
+          - type: heading
+            icon: mdi:bed-clock
+            heading: Sleep Summary
+            heading_style: title
+            badges: []
+          - type: gauge
+            entity: sensor.withings_sleep_tracker_sleep_score
+            name: Sleep Score
+            theme: Mushroom Square Shadow
+            min: 1
+          - show_name: true
+            show_icon: true
+            show_state: true
+            type: glance
+            entities:
+              - entity: sensor.active_time
+              - entity: sensor.active_kilocalories
+              - entity: sensor.total_steps
+              - entity: sensor.burned_kilocalories
+            title: Daily Active Summary
+    header:
+      layout: center
+      badges_position: bottom
+      badges_wrap: wrap
+      card:
+        type: markdown
+        content: '# My Status✨'
+    icon: mdi:account
+    cards: []
+  - type: sections
+    max_columns: 1
+    title: Home Status
+    path: home-status
+    theme: Mushroom Square
+    sections:
+      - type: grid
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: green
+                primary: Home
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/Home
+                vertical: true
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: blue
+                badge_color: blue
+                primary: My Status
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/my-status
+                vertical: true
+              - type: custom:mushroom-template-card
+                primary: Home Status
+                secondary: null
+                icon: mdi:lightbulb
+                features_position: bottom
+                color: amber
+                vertical: true
+                tap_action:
+                  action: navigate
+                  navigation_path: Devices
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-status
+              - type: custom:mushroom-template-card
+                icon: mdi:controller
+                features_position: bottom
+                color: black
+                badge_color: blue
+                primary: Home Control
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-control
+                vertical: true
+      - type: grid
+        cards:
+          - type: heading
+            heading: Front Door
+            heading_style: title
+            icon: mdi:door
+          - type: tile
+            entity: sensor.front_door_last_activity
+            vertical: false
+            features_position: bottom
+          - type: tile
+            entity: camera.front_door_live_view
+            show_entity_picture: true
+            vertical: false
+            features_position: bottom
+          - type: entities
+            entities:
+              - entity: sensor.bcpro_205589_area
+                name: 'Care Giver is in :'
+                secondary_info: last-updated
+            title: Where is my care giver
+          - type: heading
+            heading: Door and Locker
+            heading_style: title
+            icon: mdi:door-closed-lock
+          - type: custom:mushroom-lock-card
+            entity: lock.aqara_smart_lock_u300
+            name: Bedroom Lock
+          - type: entity
+            entity: binary_sensor.bedroom_door_opening
+            name: Bedroom Door
+            icon: mdi:door-sliding
+            state_color: true
+            theme: Mushroom Square Shadow
+          - type: heading
+            icon: mdi:fire-circle
+            heading: Emergency
+            heading_style: title
+          - type: entity
+            entity: binary_sensor.third_reality_vibration_sensor
+            name: Kitchen Water Status
+            state_color: false
+          - type: entity
+            entity: binary_sensor.third_reality_vibration_sensor
+            name: Washroom Water Status
+            state_color: false
+          - type: heading
+            icon: mdi:medical-bag
+            heading: Medical Inventory
+            heading_style: title
+          - type: entities
+            entities:
+              - entity: sensor.mask_inventory
+                name: How Many Mask
+                secondary_info: last-updated
+              - entity: input_number.mask_total_count
+                name: Mask Ordered
+                secondary_info: last-changed
+              - entity: sensor.device_picked
+                name: Mask Used from recent restore
+                secondary_info: last-changed
+          - type: heading
+            icon: mdi:roller-shade
+            heading_style: title
+            heading: Window Blinds
+          - type: tile
+            entity: binary_sensor.blind_position_opening
+            name: Living Room Blind
+            icon: mdi:blinds
+            color: light-green
+            show_entity_picture: false
+            hide_state: false
+            vertical: false
+            features_position: bottom
+          - type: tile
+            entity: binary_sensor.bedroom_blind_position_opening
+            name: Bedroom Blind
+            icon: mdi:blinds
+            color: light-green
+            show_entity_picture: true
+            vertical: false
+            features_position: bottom
+    header:
+      layout: center
+      badges_position: bottom
+      badges_wrap: wrap
+      card:
+        type: markdown
+        content: '# Home Status ✨'
+    icon: mdi:home-analytics
+    cards: []
+  - type: sections
+    max_columns: 1
+    title: Home Control
+    path: home-control
+    sections:
+      - type: grid
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: green
+                primary: Home
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/Home
+                vertical: true
+              - type: custom:mushroom-template-card
+                icon: mdi:home-account
+                features_position: bottom
+                color: blue
+                badge_color: blue
+                primary: My Status
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/my-status
+                vertical: true
+              - type: custom:mushroom-template-card
+                primary: Home Status
+                secondary: null
+                icon: mdi:lightbulb
+                features_position: bottom
+                color: amber
+                vertical: true
+                tap_action:
+                  action: navigate
+                  navigation_path: Devices
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-status
+              - type: custom:mushroom-template-card
+                icon: mdi:controller
+                features_position: bottom
+                color: black
+                badge_color: blue
+                primary: Home Control
+                icon_tap_action:
+                  action: navigate
+                  navigation_path: /apartment-mobile-view/home-control
+                vertical: true
+      - type: grid
+        cards:
+          - type: heading
+            icon: mdi:bed
+            heading: Bedroom
+            heading_style: title
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bedroom_ceiling_light
+            icon: mdi:lightbulb
+            name: Ceiling Light
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:lightbulb-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:lightbulb
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.mini_smart_wi_fi_plug
+            icon: mdi:desk-lamp
+            name: Table Lamp
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:desk-lamp-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - type: light
+            entity: light.bedroom_led_strip
+            icon: mdi:led-on
+            tap_action:
+              action: toggle
+            show_state: 'off'
+            state:
+              - value: 'on'
+                icon: mdi:led-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:led-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 4
+            theme: Mushroom Square Shadow
+          - type: light
+            entity: light.door_led_strip
+            icon: mdi:led-on
+            name: Frontdoor Led Strip
+            tap_action:
+              action: toggle
+            show_state: 'off'
+            state:
+              - value: 'on'
+                icon: mdi:led-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 4
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_2d
+            icon: mdi:roller-shade
+            name: Open Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade
+                color: yellow
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bedroom_blinds_down
+            icon: mdi:roller-shade-closed
+            name: Close Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade-closed
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade-closed
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - type: heading
+            icon: mdi:sofa-outline
+            heading: Living Room
+            heading_style: title
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: heading
+            icon: mdi:hand-water
+            heading: Washroom
+            heading_style: title
+            grid_options:
+              columns: 6
+              rows: 1
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_7e
+            icon: mdi:roller-shade
+            name: Open Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade
+                color: yellow
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_45
+            icon: mdi:roller-shade-closed
+            name: Close Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade-closed
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade-closed
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_5f
+            icon: mdi:lightbulb
+            name: Ceiling Light
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:lightbulb-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:lightbulb
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+    header:
+      card:
+        type: markdown
+        content: '# Home Control ✨'
+    icon: mdi:camera-control
+    cards: []
