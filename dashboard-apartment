@@ -1,0 +1,626 @@
+views:
+  - title: Home
+    sections:
+      - type: grid
+        cards:
+          - type: tile
+            entity: person.st4p_researcher_gmail_com
+            name: Victoria
+            color: blue
+            show_entity_picture: false
+            vertical: false
+            features_position: bottom
+            grid_options:
+              columns: 6
+              rows: 2
+          - type: tile
+            entity: sensor.bcpro_205589_area
+            name: Caregiver
+            icon: mdi:account-plus
+            color: primary
+            vertical: false
+            features_position: bottom
+            grid_options:
+              columns: 6
+              rows: 2
+          - type: markdown
+            content: >
+
+              <center><h1>{{ now().strftime('%a_%b_%-d, 20%y ') | replace('_',
+              '&nbsp;') }}
+            grid_options:
+              columns: 6
+              rows: 2
+          - clock_style: analog
+            clock_size: small
+            show_seconds: false
+            no_background: false
+            border: false
+            ticks: hour
+            face_style: markers
+            type: clock
+            grid_options:
+              columns: 6
+              rows: 2
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.home
+            forecast_type: daily
+            forecast_slots: 5
+            theme: Mushroom Square Shadow
+          - entities:
+              - calendar.lifeskillsdemo1_gmail_com
+            show_empty_days: true
+            title: My Calendar
+            title_font_size: 26px
+            title_color: ''
+            height: 300px
+            show_past_events: true
+            weather:
+              position: date
+              date:
+                show_conditions: true
+                show_high_temp: true
+                show_low_temp: false
+                icon_size: 14px
+                font_size: 12px
+                color: var(--primary-text-color)
+              event:
+                show_conditions: true
+                show_temp: true
+                icon_size: 14px
+                font_size: 12px
+                color: var(--primary-text-color)
+            type: custom:calendar-card-pro
+            grid_options:
+              columns: 12
+              rows: 6
+          - type: entities
+            entities:
+              - entity: sensor.mask_inventory
+                name: Mask in Dress Chest Drawer
+                secondary_info: last-updated
+                icon: mdi:treasure-chest
+              - entity: sensor.device_picked
+                name: Mask Used Recently
+                secondary_info: last-changed
+                icon: mdi:face-mask-outline
+            title: Medical Supply Overview
+      - type: grid
+        cards:
+          - type: heading
+            icon: mdi:account
+            heading: Personal Status
+            heading_style: title
+            card_mod:
+              style: |
+                :host {
+                  display: block;
+                  background: lightblue !important;
+                  padding: 8px;
+                  border-radius: 8px;
+                }
+                :host h1, :host h2 {
+                  margin: 0;
+                }
+          - type: entities
+            entities:
+              - entity: sensor.rooms_visited_count
+                name: How many rooms visited
+                icon: mdi:account-group
+              - entity: sensor.total_room_visits
+                name: Room Transition Frequency
+              - entity: >-
+                  binary_sensor.seeedstudio_mr60fda2_kit_b470d0_falling_information
+                icon: mdi:home-alert
+            title: In Home Activity
+            theme: Mushroom Square Shadow
+            show_header_toggle: false
+            state_color: false
+            card_mod:
+              style: |
+                :host {
+                  font-size: 18px;
+                }
+          - type: entities
+            entities:
+              - entity: sensor.active_time
+                name: Active Time
+                icon: mdi:account-group
+              - entity: sensor.sedentary_time
+              - entity: sensor.avg_stress_level
+              - entity: sensor.max_stress_level
+            title: Exercise & Stress
+            theme: Mushroom Square Shadow
+            show_header_toggle: false
+            state_color: false
+            card_mod:
+              style: |
+                :host {
+                  font-size: 18px;
+                }
+          - type: entities
+            entities:
+              - entity: sensor.withings_sleep_tracker_average_heart_rate
+                name: Average Heart Rate
+              - entity: sensor.withings_sleep_tracker_average_respiratory_rate
+                name: Average Respiratory Rate
+              - entity: sensor.withings_sleep_tracker_breathing_disturbances_intensity
+                name: Breathing Disturbances Intensity
+            title: Sleep Health
+            theme: Mushroom Square Shadow
+            show_header_toggle: false
+            state_color: false
+            card_mod:
+              style: |
+                :host {
+                  font-size: 18px;
+                }
+          - type: gauge
+            entity: sensor.withings_sleep_tracker_sleep_score
+            name: My Sleep Score
+            theme: Mushroom Square Shadow
+            min: 1
+            needle: true
+            severity:
+              green: 60
+              yellow: 30
+              red: 0
+      - type: grid
+        cards:
+          - type: heading
+            icon: mdi:chart-bar-stacked
+            heading_style: title
+            heading: Home Status
+            badges:
+              - type: entity
+                entity: sensor.hub_2_tempsensor_temperature
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-background: lightblue;
+                  background: lightblue;
+                  padding: 8px;
+                  border-radius: 8px;
+                  display: block;
+                }
+          - type: entities
+            entities:
+              - entity: binary_sensor.bedroom_door_opening
+                name: Front Door
+                icon: mdi:door
+              - entity: lock.aqara_smart_lock_u300
+                name: Front Door Lock
+              - entity: binary_sensor.bed_sensor
+                name: Bed Occupancy
+              - entity: binary_sensor.wheelchair_sensor
+              - entity: binary_sensor.third_reality_vibration_sensor
+                name: Kitchen Water Status
+              - entity: binary_sensor.bedroom_blind_position_opening
+                name: Bedroom Blind
+                icon: mdi:blinds
+              - entity: binary_sensor.blind_position_opening
+                name: Living Room Blind
+                icon: mdi:blinds
+            title: Home Status
+            card_mod:
+              style: |
+                :host {
+                  font-size: 18px;
+                }
+      - type: grid
+        cards:
+          - type: heading
+            icon: mdi:bed
+            heading: Bedroom
+            heading_style: title
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-background: lightblue;
+                  background: lightblue;
+                  padding: 8px;
+                  border-radius: 8px;
+                  display: block;
+                }
+          - type: tile
+            entity: camera.front_door_live_view
+            show_entity_picture: true
+            vertical: false
+            features_position: bottom
+            grid_options:
+              columns: 12
+              rows: 1
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bedroom_ceiling_light
+            icon: mdi:lightbulb
+            name: Ceiling Light
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:lightbulb-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:lightbulb
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.mini_smart_wi_fi_plug
+            icon: mdi:desk-lamp
+            name: Table Lamp
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:desk-lamp-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_2d
+            icon: mdi:roller-shade
+            name: Open Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade
+                color: yellow
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bedroom_blinds_down
+            icon: mdi:roller-shade-closed
+            name: Close Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade-closed
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade-closed
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - type: light
+            entity: light.bedroom_led_strip
+            icon: mdi:led-on
+            name: Floor Led
+            tap_action:
+              action: toggle
+            show_state: 'off'
+            state:
+              - value: 'on'
+                icon: mdi:led-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:led-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 3
+            theme: Mushroom Square Shadow
+          - type: light
+            entity: light.door_led_strip
+            icon: mdi:led-on
+            name: Frontdoor Led
+            tap_action:
+              action: toggle
+            show_state: 'off'
+            state:
+              - value: 'on'
+                icon: mdi:led-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 3
+            theme: Mushroom Square Shadow
+          - type: entity
+            entity: lock.aqara_smart_lock_u300
+            grid_options:
+              columns: 6
+              rows: 3
+          - type: heading
+            icon: mdi:fridge
+            heading: Living Room
+            heading_style: title
+            grid_options:
+              columns: 6
+              rows: 1
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-background: lightblue;
+                  background: lightblue;
+                  padding: 8px;
+                  border-radius: 8px;
+                  display: block;
+                }
+          - type: heading
+            icon: mdi:fridge
+            heading: Washroom
+            heading_style: title
+            grid_options:
+              columns: 6
+              rows: 1
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-background: lightblue;
+                  background: lightblue;
+                  padding: 8px;
+                  border-radius: 8px;
+                  display: block;
+                }
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_7e
+            icon: mdi:roller-shade
+            name: Open Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade
+                color: yellow
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_45
+            icon: mdi:roller-shade-closed
+            name: Close Blind
+            tap_action:
+              action: toggle
+            show_state: false
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade-closed
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade-closed
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.bot_5f
+            icon: mdi:lightbulb
+            name: Ceiling Light
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:lightbulb-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:lightbulb
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - type: heading
+            icon: mdi:auto-mode
+            heading: Automation
+            heading_style: title
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-background: lightblue;
+                  background: lightblue;
+                  padding: 8px;
+                  border-radius: 8px;
+                  display: block;
+                }
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: automation.nighttime_automation
+            show_state: false
+            icon: mdi:power-sleep
+            name: Nighttime Routine
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.nighttime_automation
+              data:
+                skip_condition: true
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: automation.goodnight_automation
+            show_state: false
+            icon: mdi:bed
+            name: Goodnight Routine
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.goodnight_automation
+              data:
+                skip_condition: true
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: script.good_morning_routine
+            show_state: false
+            icon: mdi:white-balance-sunny
+            name: Goodmorning Routine
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.good_morning
+              data:
+                skip_condition: true
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: automation.emergency
+            show_state: false
+            icon: mdi:alarm-light
+            name: Emergency
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.emergency
+              data:
+                skip_condition: true
+          - type: tile
+            entity: sensor.front_door_battery
+            show_entity_picture: true
+            vertical: false
+            features_position: bottom
+          - type: tile
+            entity: sensor.front_door_last_activity
+            vertical: false
+            features_position: bottom
+    header:
+      card:
+        type: markdown
+        content: >
+          <h1 style="margin: 0; padding: 12px 0; font-size: 36px; text-align:
+          center;">
+
+          Welcome to Life Skills Apartment
+
+          </h1>
+        card_mod:
+          style: |
+            ha-card {
+              background: linear-gradient(135deg, #4DB6AC, #1E88E5);
+              color: white;
+              border-radius: 12px;
+              padding: 8px;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            }
+      layout: center
+      badges_position: top
+      badges_wrap: wrap
+  - type: sections
+    max_columns: 4
+    title: Report
+    path: report
+    icon: mdi:home-analytics
+    theme: Mushroom Square Shadow
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: custom:apexcharts-card
+            header:
+              title: Time in Rooms - Last 7 Days
+              show: true
+            graph_span: 7d
+            all_series_config:
+              type: column
+              group_by:
+                duration: 1d
+                func: max
+            series:
+              - entity: sensor.time_in_living_room
+                name: Living Room
+                color: '#FFD700'
+              - entity: sensor.time_in_bedroom
+                name: Bedroom
+                color: '#1E90FF'
+              - entity: sensor.time_in_kitchen
+                name: Kitchen
+                color: '#32CD32'
+              - entity: sensor.time_in_washroom
+                name: Washroom
+                color: '#FF69B4'
+            apex_config:
+              chart:
+                type: bar
+              plotOptions:
+                bar:
+                  horizontal: false
+                  columnWidth: 60%
+              legend:
+                position: top
+                horizontalAlign: center
+              xaxis:
+                labels:
+                  format: dd MMM
+              tooltip:
+                'y':
+                  formatter: |
+                    function(value) { return value.toFixed(2) + " hrs"; }
+          - chart_type: bar
+            period: day
+            type: statistics-graph
+            entities:
+              - sensor.time_in_living_room
+            days_to_show: 7
+            stat_types:
+              - sum
+              - mean
+            title: 'Time in Living Room '
+            hide_legend: false
+            max_y_axis: 24
+          - type: custom:mini-graph-card
+            name: Living Room Time (4-hour blocks)
+            entities:
+              - sensor.time_in_living_room
+            hours_to_show: 48
+            points_per_hour: 1
+            group_by: interval
+            interval: 6 hours
+            show:
+              graph: bar
+              labels: true
+              legend: false
+            aggregate_func: mean
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: '# Status'
