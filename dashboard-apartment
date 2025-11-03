@@ -4,15 +4,15 @@ views:
       - type: grid
         cards:
           - type: tile
-            entity: person.st4p_researcher_gmail_com
-            name: Victoria
-            color: blue
-            show_entity_picture: false
-            vertical: false
-            features_position: bottom
             grid_options:
               columns: 6
               rows: 2
+            entity: sensor.bcpro_205734_area
+            name: Victoria
+            icon: mdi:account
+            color: primary
+            vertical: false
+            features_position: bottom
           - type: tile
             entity: sensor.bcpro_205589_area
             name: Caregiver
@@ -23,6 +23,17 @@ views:
             grid_options:
               columns: 6
               rows: 2
+            card_mod:
+              style: |
+                ha-card {
+                  --tile-font-size: 24px !important;      /* Main text size */
+                  --tile-secondary-font-size: 18px !important; /* Secondary text */
+                  --mdc-icon-size: 36px !important;       /* Icon size */
+                }
+                :host {
+                  --tile-font-size: 24px !important;
+                  --tile-secondary-font-size: 18px !important;
+                }
           - type: markdown
             content: >
 
@@ -42,6 +53,14 @@ views:
             grid_options:
               columns: 6
               rows: 2
+          - type: entity
+            entity: sensor.hub_2_tempsensor_temperature
+            name: Temperatur
+            theme: Mushroom Square Shadow
+          - type: entity
+            entity: sensor.hub_2_humisensor_humidity
+            name: Humidity
+            theme: Mushroom Square Shadow
           - show_current: true
             show_forecast: true
             type: weather-forecast
@@ -76,17 +95,6 @@ views:
             grid_options:
               columns: 12
               rows: 6
-          - type: entities
-            entities:
-              - entity: sensor.mask_inventory
-                name: Mask in Dress Chest Drawer
-                secondary_info: last-updated
-                icon: mdi:treasure-chest
-              - entity: sensor.device_picked
-                name: Mask Used Recently
-                secondary_info: last-changed
-                icon: mdi:face-mask-outline
-            title: Medical Supply Overview
       - type: grid
         cards:
           - type: heading
@@ -176,6 +184,8 @@ views:
             badges:
               - type: entity
                 entity: sensor.hub_2_tempsensor_temperature
+              - type: entity
+                entity: sensor.hub_2_humisensor_humidity
             card_mod:
               style: |
                 :host {
@@ -192,6 +202,7 @@ views:
                 icon: mdi:door
               - entity: lock.aqara_smart_lock_u300
                 name: Front Door Lock
+                secondary_info: state
               - entity: binary_sensor.bed_sensor
                 name: Bed Occupancy
               - entity: binary_sensor.wheelchair_sensor
@@ -209,6 +220,24 @@ views:
                 :host {
                   font-size: 18px;
                 }
+          - type: entities
+            entities:
+              - entity: sensor.mask_inventory
+                name: Mask in Dress Chest Drawer
+                secondary_info: last-updated
+                icon: mdi:treasure-chest
+              - entity: sensor.device_picked
+                name: Mask Used Recently
+                secondary_info: last-changed
+                icon: mdi:face-mask-outline
+            title: Medical Supply Overview
+          - type: entities
+            entities:
+              - entity: climate.heater_heater
+              - entity: switch.heater_oscillating
+              - entity: sensor.heater_status
+              - entity: switch.heater_child_lock
+              - entity: number.heater_target_temperature
       - type: grid
         cards:
           - type: heading
@@ -426,6 +455,26 @@ views:
           - show_name: true
             show_icon: true
             type: button
+            entity: light.living_room_lamp
+            icon: mdi:lightbulb
+            name: Living Room Lamp
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:lightbulb-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:lightbulb
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
             entity: switch.bot_5f
             icon: mdi:lightbulb
             name: Ceiling Light
@@ -512,15 +561,10 @@ views:
                 entity_id: automation.emergency
               data:
                 skip_condition: true
-          - type: tile
-            entity: sensor.front_door_battery
-            show_entity_picture: true
-            vertical: false
-            features_position: bottom
-          - type: tile
-            entity: sensor.front_door_last_activity
-            vertical: false
-            features_position: bottom
+          - type: entity
+            entity: automation.all_lights_on
+          - type: entity
+            entity: automation.all_lights_off
     header:
       card:
         type: markdown
