@@ -52,6 +52,38 @@ views:
                 vertical: true
       - type: grid
         cards:
+          - type: entity
+            entity: sensor.bcpro_205734_area
+            name: Victoria
+            icon: mdi:account
+            layout: horizontal
+            grid_options:
+              columns: 6
+              rows: 1
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(to right, #ff9966, #ff5e62);
+                  color: white;
+                  font-size: 18px;
+                  font-family: "Roboto", sans-serif;
+                  border-radius: 12px;
+                }
+          - type: entity
+            entity: sensor.bcpro_205589_area
+            name: Caregiver
+            icon: mdi:account-plus
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #BBDEFB, #64B5F6); /* light sky to soft blue */
+                  color: #0D47A1; /* dark blue text for contrast */
+                  font-size: 18px;
+                  font-family: "Roboto", sans-serif;
+                  border-radius: 12px;
+                  padding: 8px;
+                  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                }
           - type: markdown
             content: >-
               <center><h1>{{ now().strftime('%a_%b_%-d, 20%y ') | replace('_',
@@ -68,32 +100,20 @@ views:
             grid_options:
               columns: 6
               rows: 2
-          - type: custom:mushroom-person-card
-            name: Victoria
-            icon: mdi:account
-            fill_container: true
-            layout: horizontal
-            entity: person.st4p_researcher_gmail_com
-            grid_options:
-              columns: 6
-              rows: 1
-          - type: tile
-            entity: sensor.bcpro_205589_area
-            name: Caregiver
-            icon: mdi:account-plus
-            color: primary
-            vertical: false
-            features_position: bottom
-            grid_options:
-              columns: 6
-              rows: 1
           - show_current: true
             show_forecast: true
             type: weather-forecast
-            entity: weather.forecast_home
+            entity: weather.home
             forecast_type: daily
-            secondary_info_attribute: wind_speed
+            forecast_slots: 5
             theme: Mushroom Square Shadow
+            name: Weather
+            card_mod:
+              style: |
+                ha-card {
+                  font-size: 28px;
+                  font-family: "Roboto", sans-serif;
+                }
           - entities:
               - calendar.lifeskillsdemo1_gmail_com
             show_empty_days: true
@@ -117,25 +137,25 @@ views:
                 font_size: 12px
                 color: var(--primary-text-color)
             type: custom:calendar-card-pro
-          - type: entities
-            entities:
-              - entity: sensor.mask_inventory
-                name: Mask in Dress Chest Drawer
-                secondary_info: last-updated
-                icon: mdi:treasure-chest
-              - entity: sensor.device_picked
-                name: Mask Used Recently
-                secondary_info: last-changed
-                icon: mdi:face-mask-outline
-            title: Medical Supply Overview
     header:
       card:
         type: markdown
-        content: |-
-          # Welcome to Life Skills Apartment
-          #
-          #
-        text_only: true
+        content: >
+          <h1 style="margin: 0; padding: 12px 0; font-size: 36px; text-align:
+          center;">
+
+          Welcome to Life Skills Apartment
+
+          </h1>
+        card_mod:
+          style: |
+            ha-card {
+              background: linear-gradient(135deg, #4DB6AC, #1E88E5);
+              color: white;
+              border-radius: 12px;
+              padding: 8px;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            }
     badges: []
     cards: []
     title: Home
@@ -357,6 +377,7 @@ views:
                 icon: mdi:door
               - entity: lock.aqara_smart_lock_u300
                 name: Front Door Lock
+                secondary_info: state
               - entity: binary_sensor.bed_sensor
                 name: Bed Occupancy
               - entity: binary_sensor.wheelchair_sensor
@@ -368,7 +389,35 @@ views:
               - entity: binary_sensor.blind_position_opening
                 name: Living Room Blind
                 icon: mdi:blinds
+              - entity: switch.stove_exhaust
+                name: Kitchen Range Hood
+                icon: mdi:stove
+                secondary_info: state
+              - entity: switch.stove_light
+                name: Kitchen Countertop Light
+                icon: mdi:lightbulb-on-10
+                secondary_info: state
+              - entity: light.strip_light
+                name: Kitchen Cabin Light
+                secondary_info: state
             title: Home Status
+            show_header_toggle: false
+            card_mod:
+              style: |
+                :host {
+                  font-size: 18px;
+                }
+          - type: entities
+            entities:
+              - entity: sensor.mask_inventory
+                name: Catheter in Dress Chest Drawer
+                secondary_info: last-updated
+                icon: mdi:treasure-chest
+              - entity: sensor.device_picked
+                name: Catheter Used
+                secondary_info: last-changed
+                icon: mdi:face-mask-outline
+            title: Catheter Inventory Summary
             card_mod:
               style: |
                 :host {
@@ -436,6 +485,14 @@ views:
                 color: red
       - type: grid
         cards:
+          - type: tile
+            entity: camera.front_door_live_view
+            show_entity_picture: true
+            vertical: false
+            features_position: bottom
+            grid_options:
+              columns: 12
+              rows: 2
           - type: heading
             icon: mdi:bed
             heading: Bedroom
@@ -474,7 +531,47 @@ views:
             type: button
             entity: switch.mini_smart_wi_fi_plug
             icon: mdi:desk-lamp
-            name: Table Lamp
+            name: Floor Lamp
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:desk-lamp-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: light.bedroom_table_lamp
+            icon: mdi:lamp
+            name: Standing Lamp
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:desk-lamp-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: light.bedside_light
+            icon: mdi:lamp
+            name: Table Side Lamp
             tap_action:
               action: toggle
             show_state: true
@@ -531,7 +628,7 @@ views:
           - type: light
             entity: light.bedroom_led_strip
             icon: mdi:led-on
-            name: Floor Led
+            name: Bed LED Strip
             tap_action:
               action: toggle
             show_state: 'off'
@@ -544,12 +641,12 @@ views:
                 color: gray
             grid_options:
               columns: 3
-              rows: 3
+              rows: 4
             theme: Mushroom Square Shadow
           - type: light
             entity: light.door_led_strip
             icon: mdi:led-on
-            name: Frontdoor Led
+            name: Door LED Strip
             tap_action:
               action: toggle
             show_state: 'off'
@@ -562,19 +659,19 @@ views:
                 color: gray
             grid_options:
               columns: 3
-              rows: 3
+              rows: 4
             theme: Mushroom Square Shadow
           - type: entity
             entity: lock.aqara_smart_lock_u300
             grid_options:
               columns: 6
-              rows: 3
+              rows: 2
           - type: heading
             icon: mdi:fridge
             heading: Living Room
             heading_style: title
             grid_options:
-              columns: 6
+              columns: 12
               rows: 1
             card_mod:
               style: |
@@ -585,22 +682,74 @@ views:
                   border-radius: 8px;
                   display: block;
                 }
-          - type: heading
-            icon: mdi:fridge
-            heading: Washroom
-            heading_style: title
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.living_room_lamp_1
+            icon: mdi:lightbulb
+            name: Floor Lamp 1
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:desk-lamp-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
             grid_options:
-              columns: 6
-              rows: 1
-            card_mod:
-              style: |
-                :host {
-                  --ha-card-background: lightblue;
-                  background: lightblue;
-                  padding: 8px;
-                  border-radius: 8px;
-                  display: block;
-                }
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: switch.living_room_lamp_2
+            icon: mdi:lightbulb
+            name: Floor Lamp 2
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:desk-lamp-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:desk-lamp-off
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - show_name: true
+            show_icon: true
+            type: button
+            entity: light.living_room_lamp
+            icon: mdi:lightbulb
+            name: Table Lamp
+            tap_action:
+              action: toggle
+            show_state: true
+            state:
+              - value: 'on'
+                icon: mdi:lightbulb-on
+                color: yellow
+              - value: 'off'
+                icon: mdi:lightbulb
+                color: gray
+            grid_options:
+              columns: 3
+              rows: 2
+            theme: Mushroom Square Shadow
+          - type: light
+            entity: light.smart_tower_fan
+            icon: mdi:fan
+            name: Fan
+            theme: Mushroom Square Shadow
+            grid_options:
+              columns: 3
+              rows: 2
           - show_name: true
             show_icon: true
             type: button
@@ -640,6 +789,41 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+          - type: custom:mushroom-entity-card
+            entity: input_boolean.fan_power
+            name: Heater
+            icon: mdi:radiator
+            tap_action:
+              action: toggle
+            layout: horizontal
+            primary_info: name
+            secondary_info: state
+            icon_type: icon
+            icon_color: amber
+            grid_options:
+              columns: 6
+              rows: 2
+            card_mod:
+              style: |
+                ha-card {
+                  font-size: 18px;
+                }
+          - type: heading
+            icon: mdi:fridge
+            heading: Washroom
+            heading_style: title
+            grid_options:
+              columns: 12
+              rows: 1
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-background: lightblue;
+                  background: lightblue;
+                  padding: 8px;
+                  border-radius: 8px;
+                  display: block;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -676,38 +860,9 @@ views:
           - show_name: true
             show_icon: true
             type: button
-            entity: automation.nighttime_automation
             show_state: false
-            icon: mdi:power-sleep
-            name: Nighttime Routine
-            tap_action:
-              action: perform-action
-              perform_action: automation.trigger
-              target:
-                entity_id: automation.nighttime_automation
-              data:
-                skip_condition: true
-          - show_name: true
-            show_icon: true
-            type: button
-            entity: automation.goodnight_automation
-            show_state: false
-            icon: mdi:bed
-            name: Goodnight Routine
-            tap_action:
-              action: perform-action
-              perform_action: automation.trigger
-              target:
-                entity_id: automation.goodnight_automation
-              data:
-                skip_condition: true
-          - show_name: true
-            show_icon: true
-            type: button
-            entity: script.good_morning_routine
-            show_state: false
-            icon: mdi:white-balance-sunny
-            name: Goodmorning Routine
+            icon: mdi:weather-sunny
+            name: Good Morning Routine
             tap_action:
               action: perform-action
               perform_action: automation.trigger
@@ -715,13 +870,42 @@ views:
                 entity_id: automation.good_morning
               data:
                 skip_condition: true
+            entity: automation.good_morning
+          - show_name: true
+            show_icon: true
+            type: button
+            show_state: false
+            icon: mdi:power-sleep
+            name: Good Evening Routine
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.nighttime_automation
+              data:
+                skip_condition: true
+            entity: automation.new_nightime_routine
+          - show_name: true
+            show_icon: true
+            type: button
+            show_state: false
+            icon: mdi:bed
+            name: Good Night Routine
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.goodnight_automation
+              data:
+                skip_condition: true
+            entity: automation.new_goodnight_routine
           - show_name: true
             show_icon: true
             type: button
             entity: automation.emergency
             show_state: false
             icon: mdi:alarm-light
-            name: Emergency
+            name: Emergency Routine
             tap_action:
               action: perform-action
               perform_action: automation.trigger
@@ -729,6 +913,86 @@ views:
                 entity_id: automation.emergency
               data:
                 skip_condition: true
+          - type: button
+            name: Close All Blinds
+            icon: mdi:roller-shade-closed
+            show_name: true
+            show_icon: true
+            show_state: false
+            theme: Mushroom Square Shadow
+            grid_options:
+              columns: 3
+              rows: 2
+            tap_action:
+              action: call-service
+              service: switch.toggle
+              target:
+                entity_id:
+                  - switch.bedroom_blinds_down
+                  - switch.bot_45
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade-closed
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade-closed
+          - type: button
+            name: Open All Blinds
+            icon: mdi:roller-shade
+            show_name: true
+            show_icon: true
+            show_state: false
+            theme: Mushroom Square Shadow
+            grid_options:
+              columns: 3
+              rows: 2
+            tap_action:
+              action: call-service
+              service: switch.toggle
+              target:
+                entity_id:
+                  - switch.bot_2d
+                  - switch.bot_7e
+            state:
+              - value: 'on'
+                icon: mdi:roller-shade
+                color: yellow
+              - value: 'off'
+                icon: mdi:roller-shade
+          - show_name: true
+            show_icon: true
+            type: button
+            show_state: false
+            icon: mdi:lightbulb-multiple-off
+            name: All Lights Off
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.all_lights_off
+              data:
+                skip_condition: true
+            entity: automation.all_lights_off
+            grid_options:
+              columns: 3
+              rows: 2
+          - show_name: true
+            show_icon: true
+            type: button
+            show_state: false
+            icon: mdi:lightbulb-multiple
+            name: All Lights On
+            tap_action:
+              action: perform-action
+              perform_action: automation.trigger
+              target:
+                entity_id: automation.all_lights_on
+              data:
+                skip_condition: true
+            entity: automation.all_lights_on
+            grid_options:
+              columns: 3
+              rows: 2
     header:
       card:
         type: markdown
