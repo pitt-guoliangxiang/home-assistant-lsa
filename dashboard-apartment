@@ -10,8 +10,15 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  background: linear-gradient(to right, #ff9966, #ff5e62);
-                  color: white;
+                  {% if states('sensor.bcpro_205734_area') not in ['unavailable', 'unknown'] %}
+                    background: linear-gradient(to right, #ff9966, #ff5e62);
+                    color: white;
+                  {% else %}
+                    background: linear-gradient(to right, #9e9e9e, #616161);
+                    color: #e0e0e0;
+                  {% endif %}
+                  background: linear-gradient(135deg, #FFF8E1, #FFE082);
+                  color:  #0D47A1;
                   font-size: 18px;
                   font-family: "Roboto", sans-serif;
                   border-radius: 12px;
@@ -23,22 +30,22 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  background: linear-gradient(135deg, #BBDEFB, #64B5F6); /* light sky to soft blue */
-                  color: #0D47A1; /* dark blue text for contrast */
-                  font-size: 18px;
-                  font-family: "Roboto", sans-serif;
-                  border-radius: 12px;
-                  padding: 8px;
-                  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                  background: linear-gradient(135deg, #F0F9FF, #A8D8FF);/* light sky to soft blue */
+                  color: #0D47A1; /* dark blue text for contrast */     
                 }
           - type: markdown
             content: >
-
               <center><h1>{{ now().strftime('%a_%b_%-d, 20%y ') | replace('_',
               '&nbsp;') }}
             grid_options:
               columns: 6
               rows: 2
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #F0F9FF, #A8D8FF);/* light sky to soft blue */
+                  color: #0D47A1; /* dark blue text for contrast */     
+                }
           - clock_style: analog
             clock_size: small
             show_seconds: false
@@ -50,14 +57,32 @@ views:
             grid_options:
               columns: 6
               rows: 2
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #F0F9FF, #A8D8FF);/* light sky to soft blue */
+                  color: #0D47A1; /* dark blue text for contrast */     
+                }
           - type: entity
             entity: sensor.hub_2_tempsensor_temperature
             name: Temperatur
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #F0F9FF, #A8D8FF);/* light sky to soft blue */
+                  color: #0D47A1; /* dark blue text for contrast */     
+                }
           - type: entity
             entity: sensor.hub_2_humisensor_humidity
             name: Humidity
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #F0F9FF, #A8D8FF);/* light sky to soft blue */
+                  color: #0D47A1; /* dark blue text for contrast */     
+                }
           - show_current: true
             show_forecast: true
             type: weather-forecast
@@ -67,8 +92,12 @@ views:
             theme: Mushroom Square Shadow
             name: Weather
             card_mod:
-              style: |
+              style: >
                 ha-card {
+
+                background: linear-gradient(135deg, #F0F9FF, #A8D8FF);/* light
+                sky to soft blue */
+                  color: #0D47A1; /* dark blue text for contrast */     
                   font-size: 28px;
                   font-family: "Roboto", sans-serif;
                 }
@@ -99,12 +128,7 @@ views:
               columns: 12
               rows: 6
             height: 300px
-            card_mod:
-              style: |
-                ha-card {
-                  font-size: 18px;
-                  font-family: "Roboto", sans-serif;
-                }
+            background_color: '#E3F2FD'
       - type: grid
         cards:
           - type: heading
@@ -139,8 +163,14 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  font-size: 18px;
+                  background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+                  color: #212121;
+                  border-radius: 12px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
                   font-family: "Roboto", sans-serif;
+                }
+                .card-content {
+                  font-size: 18px;
                 }
           - type: entities
             entities:
@@ -156,7 +186,14 @@ views:
             state_color: false
             card_mod:
               style: |
-                :host {
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+                  color: #212121;
+                  border-radius: 12px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                  font-family: "Roboto", sans-serif;
+                }
+                .card-content {
                   font-size: 18px;
                 }
           - type: entities
@@ -173,7 +210,14 @@ views:
             state_color: false
             card_mod:
               style: |
-                :host {
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+                  color: #212121;
+                  border-radius: 12px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                  font-family: "Roboto", sans-serif;
+                }
+                .card-content {
                   font-size: 18px;
                 }
           - type: gauge
@@ -186,6 +230,18 @@ views:
               green: 60
               yellow: 30
               red: 0
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+                  color: #212121;
+                  border-radius: 12px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                  font-family: "Roboto", sans-serif;
+                }
+                .card-content {
+                  font-size: 18px;
+                }
       - type: grid
         cards:
           - type: heading
@@ -240,7 +296,14 @@ views:
             show_header_toggle: false
             card_mod:
               style: |
-                :host {
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+                  color: #212121;
+                  border-radius: 12px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                  font-family: "Roboto", sans-serif;
+                }
+                .card-content {
                   font-size: 18px;
                 }
           - type: entities
@@ -256,7 +319,14 @@ views:
             title: Catheter Inventory Summary
             card_mod:
               style: |
-                :host {
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+                  color: #212121;
+                  border-radius: 12px;
+                  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                  font-family: "Roboto", sans-serif;
+                }
+                .card-content {
                   font-size: 18px;
                 }
       - type: grid
@@ -282,6 +352,14 @@ views:
             grid_options:
               columns: 12
               rows: 1
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -302,6 +380,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -322,6 +408,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -342,6 +436,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -362,6 +464,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -382,6 +492,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -401,6 +519,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - type: light
             entity: light.bedroom_led_strip
             icon: mdi:led-on
@@ -419,6 +545,14 @@ views:
               columns: 3
               rows: 4
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - type: light
             entity: light.door_led_strip
             icon: mdi:led-on
@@ -437,11 +571,27 @@ views:
               columns: 3
               rows: 4
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - type: entity
             entity: lock.aqara_smart_lock_u300
             grid_options:
               columns: 6
               rows: 2
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - type: heading
             icon: mdi:fridge
             heading: Living Room
@@ -478,6 +628,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -498,6 +656,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -518,6 +684,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - type: light
             entity: light.smart_tower_fan
             icon: mdi:fan
@@ -526,6 +700,14 @@ views:
             grid_options:
               columns: 3
               rows: 2
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -546,6 +728,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - show_name: true
             show_icon: true
             type: button
@@ -565,6 +755,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - type: custom:mushroom-entity-card
             entity: input_boolean.fan_power
             name: Heater
@@ -582,7 +780,10 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  font-size: 18px;
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 18px;
+                  font-family: "Roboto", sans-serif;
                 }
           - type: heading
             icon: mdi:faucet
@@ -620,6 +821,14 @@ views:
               columns: 3
               rows: 2
             theme: Mushroom Square Shadow
+            card_mod:
+              style: |
+                ha-card {
+                  background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+                  color: black;
+                  border-radius: 12px;
+                  font-family: "Roboto", sans-serif;
+                }
           - type: heading
             icon: mdi:auto-mode
             heading: Automation
